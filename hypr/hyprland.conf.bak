@@ -1,0 +1,129 @@
+
+# 1. Monitor
+monitor=,preferred,auto,1
+
+# 2. Autostart Apps & Shell
+
+exec-once = swaybg -c "#11111b"
+exec-once = sh -c 'date >> /tmp/hypr-exec-test.log'
+exec-once = python3 ~/scripts/infinite_desktop_core.py 1.6 > /tmp/infinite-desktop.log 2>&1
+
+# 3. Input Keyboard & Touchpad
+input {
+    kb_layout = us
+    follow_mouse = 1
+    touchpad {
+        natural_scroll = false
+    }
+    sensitivity = 0
+}
+
+# 4. Tampilan & Layout (Gaps, Border, Colors)
+general {
+    gaps_in = 5
+    gaps_out = 10
+    border_size = 2
+    col.active_border = rgba(89b4faee) rgba(cba6f7ee) 45deg
+    col.inactive_border = rgba(585b70aa)
+    layout = dwindle
+}
+
+decoration {
+    rounding = 10
+    blur {
+        enabled = true
+        size = 3
+        passes = 1
+    }
+    shadow {
+        enabled = true
+        range = 4
+        render_power = 3
+        color = rgba(1a1a1aee)
+    }
+}
+
+animations {
+    enabled = true
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = border, 1, 10, default
+    animation = borderangle, 1, 8, default
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+
+dwindle {
+    pseudotile = true
+    preserve_split = true
+}
+
+misc {
+    force_default_wallpaper = 0
+    disable_hyprland_logo = true
+}
+
+# 5. Keybindings (Pintasan Keyboard)
+$mainMod = SUPER
+
+# Aplikasi Utama (Support T & Return untuk Terminal)
+bind = $mainMod, Return, exec, kitty
+bind = $mainMod, T, exec, kitty
+bind = $mainMod, Q, killactive,
+bind = $mainMod, W, exec, brave
+bind = $mainMod, E, exec, dolphin
+bind = $mainMod, Space, exec, rofi -show drun
+
+# Management Jendela
+bind = $mainMod, C, killactive,
+bind = $mainMod, V, togglefloating,
+bind = $mainMod, P, pseudo, # dwindle
+bind = $mainMod, J, togglesplit, # dwindle
+bind = $mainMod, F, fullscreen,
+
+# Keluar dari Hyprland
+bind = $mainMod SHIFT, M, exit,
+
+
+# Infinite Desktop Navigation & Control
+bind = $mainMod, D, exec, python3 ~/scripts/floating_tile_toggle.py
+bind = $mainMod, left, exec, python3 ~/scripts/navigate_windows.py left
+bind = $mainMod, right, exec, python3 ~/scripts/navigate_windows.py right
+bind = $mainMod, up, exec, python3 ~/scripts/navigate_windows.py up
+bind = $mainMod, down, exec, python3 ~/scripts/navigate_windows.py down
+
+bind = $mainMod ALT, left, exec, python3 ~/scripts/move_window_tiled.py left
+bind = $mainMod ALT, right, exec, python3 ~/scripts/move_window_tiled.py right
+bind = $mainMod ALT, up, exec, python3 ~/scripts/move_window_tiled.py up
+bind = $mainMod ALT, down, exec, python3 ~/scripts/move_window_tiled.py down
+
+binde = $mainMod SHIFT, left, exec, python3 ~/scripts/move_window.py left
+binde = $mainMod SHIFT, right, exec, python3 ~/scripts/move_window.py right
+binde = $mainMod SHIFT, up, exec, python3 ~/scripts/move_window.py up
+binde = $mainMod SHIFT, down, exec, python3 ~/scripts/move_window.py down
+
+binde = $mainMod CTRL, left, exec, python3 ~/scripts/resize_window.py left
+binde = $mainMod CTRL, right, exec, python3 ~/scripts/resize_window.py right
+binde = $mainMod CTRL, up, exec, python3 ~/scripts/resize_window.py up
+binde = $mainMod CTRL, down, exec, python3 ~/scripts/resize_window.py down
+
+# Pindah Workspace (1 - 5)
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+
+# Pindahkan Jendela ke Workspace (1 - 5)
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+
+# Move/Resize windows with mainMod + LMB/RMB and dragging
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+bindm = $mainMod ALT, mouse:272, movewindow
+

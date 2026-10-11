@@ -1,0 +1,16 @@
+{
+    "appearance": {
+        "transparency": {
+            "enabled": true
+        }
+    },
+    "dashboard": {
+        "enabled": true,
+        "showClockSeconds": false,
+        "showDashboard": true,
+        "showOnHover": true
+    },
+    "launcher": {
+        "maxWallpapers": 10
+    }
+}

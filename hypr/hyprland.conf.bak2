@@ -1,0 +1,129 @@
+
+# 1. Monitor
+monitor=,preferred,auto,1
+
+# 2. Autostart Apps & Shell
+
+exec-once = swaybg -c "#11111b"
+exec-once = sh -c 'date >> /tmp/hypr-exec-test.log'
+exec-once = python3 ~/scripts/infinite_desktop_core.py 1.6 > /tmp/infinite-desktop.log 2>&1
+
+# 3. Input Keyboard & Touchpad
+input {
+    kb_layout = us
+    follow_mouse = 1
+    touchpad {
+        natural_scroll = false
+    }
+    sensitivity = 0
+}
+
+# 4. Tampilan & Layout (Gaps, Border, Colors)
+general {
+    gaps_in = 5
+    gaps_out = 10
+    border_size = 2
+    col.active_border = rgba(89b4faee) rgba(cba6f7ee) 45deg
+    col.inactive_border = rgba(585b70aa)
+    layout = dwindle
+}
+
+decoration {
+    rounding = 10
+    blur {
+        enabled = true
+        size = 3
+        passes = 1
+    }
+    shadow {
+        enabled = true
+        range = 4
+        render_power = 3
+        color = rgba(1a1a1aee)
+    }
+}
+
+animations {
+    enabled = true
+    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
+    animation = windows, 1, 7, myBezier
+    animation = windowsOut, 1, 7, default, popin 80%
+    animation = border, 1, 10, default
+    animation = borderangle, 1, 8, default
+    animation = fade, 1, 7, default
+    animation = workspaces, 1, 6, default
+}
+
+dwindle {
+    pseudotile = true
+    preserve_split = true
+}
+
+misc {
+    force_default_wallpaper = 0
+    disable_hyprland_logo = true
+}
+
+# 5. Keybindings (Pintasan Keyboard)
+SUPER = SUPER
+
+# Aplikasi Utama (Support T & Return untuk Terminal)
+bind = SUPER, Return, exec, kitty
+bind = SUPER, T, exec, kitty
+bind = SUPER, Q, killactive,
+bind = SUPER, W, exec, brave
+bind = SUPER, A, exec, /home/focarix/.local/bin/antigravity
+bind = SUPER, E, exec, dolphin
+
+# Management Jendela
+bind = SUPER, C, killactive,
+bind = SUPER, V, togglefloating,
+bind = SUPER, P, pseudo, # dwindle
+bind = SUPER, J, togglesplit, # dwindle
+bind = SUPER, F, fullscreen,
+
+# Keluar dari Hyprland
+bind = SUPER SHIFT, M, exit,
+
+
+# Infinite Desktop Navigation & Control
+bind = SUPER, D, exec, python3 ~/scripts/floating_tile_toggle.py
+bind = SUPER, left, exec, python3 ~/scripts/navigate_windows.py left
+bind = SUPER, right, exec, python3 ~/scripts/navigate_windows.py right
+bind = SUPER, up, exec, python3 ~/scripts/navigate_windows.py up
+bind = SUPER, down, exec, python3 ~/scripts/navigate_windows.py down
+
+bind = SUPER ALT, left, exec, python3 ~/scripts/move_window_tiled.py left
+bind = SUPER ALT, right, exec, python3 ~/scripts/move_window_tiled.py right
+bind = SUPER ALT, up, exec, python3 ~/scripts/move_window_tiled.py up
+bind = SUPER ALT, down, exec, python3 ~/scripts/move_window_tiled.py down
+
+binde = SUPER SHIFT, left, exec, python3 ~/scripts/move_window.py left
+binde = SUPER SHIFT, right, exec, python3 ~/scripts/move_window.py right
+binde = SUPER SHIFT, up, exec, python3 ~/scripts/move_window.py up
+binde = SUPER SHIFT, down, exec, python3 ~/scripts/move_window.py down
+
+binde = SUPER CTRL, left, exec, python3 ~/scripts/resize_window.py left
+binde = SUPER CTRL, right, exec, python3 ~/scripts/resize_window.py right
+binde = SUPER CTRL, up, exec, python3 ~/scripts/resize_window.py up
+binde = SUPER CTRL, down, exec, python3 ~/scripts/resize_window.py down
+
+# Pindah Workspace (1 - 5)
+bind = SUPER, 1, workspace, 1
+bind = SUPER, 2, workspace, 2
+bind = SUPER, 3, workspace, 3
+bind = SUPER, 4, workspace, 4
+bind = SUPER, 5, workspace, 5
+
+# Pindahkan Jendela ke Workspace (1 - 5)
+bind = SUPER SHIFT, 1, movetoworkspace, 1
+bind = SUPER SHIFT, 2, movetoworkspace, 2
+bind = SUPER SHIFT, 3, movetoworkspace, 3
+bind = SUPER SHIFT, 4, movetoworkspace, 4
+bind = SUPER SHIFT, 5, movetoworkspace, 5
+
+# Move/Resize windows with mainMod + LMB/RMB and dragging
+bindm = SUPER, mouse:272, movewindow
+bindm = SUPER, mouse:273, resizewindow
+bindm = SUPER ALT, mouse:272, movewindow
+
